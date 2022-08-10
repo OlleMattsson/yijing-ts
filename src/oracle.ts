@@ -9,8 +9,8 @@ import {
 import { RNG, Provider } from "rng-ts";
 import { YiJing } from ".";
 
-export interface HexagramInterface {
-  make(): Promise<void>;
+export interface OracleInterface {
+  divinate(): Promise<void>;
   makeFuture(): Promise<void>;
   get({ binary }: { binary?: boolean }): TrueHexagram | BinaryHexagram;
   getFuture({ binary }: { binary?: boolean }): TrueHexagram | BinaryHexagram;
@@ -19,7 +19,7 @@ export interface HexagramInterface {
   getProvider(): Provider;
 }
 
-export class Hexagram implements HexagramInterface {
+export class Oracle implements OracleInterface {
   private randomNumbers: uint8[] | null;
   private hexagram: TrueHexagram | null;
   private futureHexagram: TrueHexagram | null;
@@ -32,7 +32,7 @@ export class Hexagram implements HexagramInterface {
     this.rngProvider = provider;
   }
 
-  async make(): Promise<void> {
+  async divinate(): Promise<void> {
     const rng = new RNG({ provider: this.rngProvider });
 
     // optimization: fetch a larger batch of random numbers

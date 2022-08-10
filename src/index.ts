@@ -3,11 +3,11 @@ import { binaryToFuxi } from "./binaryToFuxi";
 import { kingWenSequence } from "./kingWenSequence";
 import { binaryToKingWen } from "./binaryToKingWen";
 import { normalizeFourUintNumbers, makeLine } from "./makeLine";
-import { Hexagram } from "./hexagram";
+import { Oracle } from "./oracle";
 import { hexagramToBinaryHexagram } from "./hexagramToBinaryHexagram";
 
 export const YiJing = {
-  Hexagram,
+  Oracle,
   hexagramToBinaryHexagram,
   fuxiToBinary,
   fuxiToBinaryLegacy,

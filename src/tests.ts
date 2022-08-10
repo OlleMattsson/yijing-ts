@@ -42,19 +42,17 @@ export async function runYiJingTests() {
 
   console.log(`\n.: Oracle API Tests :.`);
 
-  const hexagram = new YiJing.Hexagram(); //{ provider: Provider.AnuQrng });
-  await hexagram.make();
-  hexagram.makeFuture();
+  const oracle = new YiJing.Oracle(); //{ provider: Provider.AnuQrng });
+  await oracle.divinate();
+  oracle.makeFuture();
 
-  console.log(`hexagram.getProvider()      ${hexagram.getProvider()}`);
-  console.log(`hexagram.getRandomNumbers() ${hexagram.getRandomNumbers()}`);
-  console.log(`hexagram.get():             ${hexagram.get()}`);
-  console.log(`hexagram.getFuture():       ${hexagram.getFuture()}`);
-  console.log(`hexagram.get(binary):       ${hexagram.get({ binary: true })}`);
-  console.log(
-    `hexagram.getFuture(binary): ${hexagram.getFuture({ binary: true })}`
-  );
-  console.log(`hexagram.getChanges():      ${hexagram.getChanges()}`);
+  console.log(`oracle.getProvider()      ${oracle.getProvider()}`);
+  console.log(`oracle.getRandomNumbers() ${oracle.getRandomNumbers()}`);
+  console.log(`oracle.get():             ${oracle.get()}`);
+  console.log(`oracle.getFuture():       ${oracle.getFuture()}`);
+  console.log(`oracle.get(binary):       ${oracle.get({ binary: true })}`);
+  console.log(`oracle.getFuture(binary): ${oracle.getFuture({ binary: true })}`);
+  console.log(`oracle.getChanges():      ${oracle.getChanges()}`);
 }
 
 /*
