@@ -7,7 +7,7 @@ import {
   NormalizedCoinToss,
   Line,
   FourUint8Numbers
-} from "../types";
+} from "./types";
 
 // normalize uint8 integer (0-255) to 0 (tails) or 1 (heads)
 function normalize(n: uint8): Binary {

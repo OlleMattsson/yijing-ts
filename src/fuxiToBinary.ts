@@ -3,7 +3,7 @@
   examople: 3 -> [0,0,0,0,1,1]
 */
 
-import { Fuxi, BinaryHexagram, Binary } from "../types";
+import { Fuxi, BinaryHexagram, Binary } from "./types";
 
 function evaluateFuxi(f: Fuxi): void {
   if (f > 63) {

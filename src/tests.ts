@@ -1,6 +1,6 @@
-import { YiJing } from "./";
+import { YiJing } from ".";
 import { BinaryHexagram, Fuxi, CoinToss } from "./types";
-import { RNG, Provider } from "rng-ts"";
+import { RNG, Provider } from "rng-ts";
 
 const UnicodeHex1 = "\u4DC0";
 const UnicodeHex2 = "\u4DC1";
@@ -86,3 +86,5 @@ export function runHelperBenchmarks() {
 
   console.log("new ", time2);
 }
+
+runYiJingTests()

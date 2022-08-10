@@ -1,7 +1,7 @@
 // Convert a seqauence of lines to a binary sequence of broken and unbroken lines
 // Array[Line] => Array[Bool]
 
-import { BinaryHexagram, TrueHexagram } from "../types";
+import { BinaryHexagram, TrueHexagram } from "./types";
 
 // (6) [5, 13, 13, 14, 2, 13] => [1, 0, 0, 0, 1, 0]
 export function hexagramToBinaryHexagram(h: TrueHexagram): BinaryHexagram {

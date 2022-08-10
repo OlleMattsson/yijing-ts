@@ -5,9 +5,9 @@ import {
   CoinToss,
   NormalizedCoinToss,
   Line
-} from "../types";
-import { RNG, Provider } from "../../rng";
-import { YiJing } from "../";
+} from "./types";
+import { RNG, Provider } from "rng-ts";
+import { YiJing } from ".";
 
 export interface HexagramInterface {
   make(): Promise<void>;
