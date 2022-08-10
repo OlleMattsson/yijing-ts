@@ -1,10 +1,10 @@
-import { fuxiToBinaryLegacy, fuxiToBinary } from "./src/fuxiToBinary";
-import { binaryToFuxi } from "./src/binaryToFuxi";
-import { kingWenSequence } from "./src/kingWenSequence";
-import { binaryToKingWen } from "./src/binaryToKingWen";
-import { normalizeFourUintNumbers, makeLine } from "./src/makeLine";
-import { Hexagram } from "./src/hexagram";
-import { hexagramToBinaryHexagram } from "./src/hexagramToBinaryHexagram";
+import { fuxiToBinaryLegacy, fuxiToBinary } from "./fuxiToBinary";
+import { binaryToFuxi } from "./binaryToFuxi";
+import { kingWenSequence } from "./kingWenSequence";
+import { binaryToKingWen } from "./binaryToKingWen";
+import { normalizeFourUintNumbers, makeLine } from "./makeLine";
+import { Hexagram } from "./hexagram";
+import { hexagramToBinaryHexagram } from "./hexagramToBinaryHexagram";
 
 export const YiJing = {
   Hexagram,
