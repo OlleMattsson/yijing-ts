@@ -7,6 +7,7 @@ export type Line4 = uint4;
 export type Line5 = uint4;
 export type Line6 = uint4;
 export type TrueHexagram = [Line6, Line5, Line4, Line3, Line2, Line1];
+export type Hexagram = [Line6, Line5, Line4, Line3, Line2, Line1];
 
 // Binary representations of hexagrams helps with presentation / rendering
 export type Binary = 0 | 1;
@@ -27,6 +28,7 @@ export type BinaryHexagram = [
 
 // Yijing "sequences"
 export type Fuxi = uint6;
+export type Kingwen = uint6;
 export type KingWenSequence = number[];
 
 // Divination types

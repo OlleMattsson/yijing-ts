@@ -1,135 +1,175 @@
-import {
-  TrueHexagram,
-  BinaryHexagram,
-  uint8,
-  CoinToss,
-  NormalizedCoinToss,
-  Line
-} from "./types";
-import { RNG, Provider } from "rng-ts";
-import { YiJing } from ".";
+import {TrueHexagram, BinaryHexagram, Fuxi, Kingwen}from "./types"
+import {fuxiToBinary} from "./fuxiToBinary"
+import {binaryToFuxi } from "./binaryToFuxi"
+import {binaryToKingWen} from "./binaryToKingWen"
+import {hexagramToBinaryHexagram} from "./hexagramToBinaryHexagram"
 
-export interface HexagramInterface {
-  make(): Promise<void>;
-  makeFuture(): Promise<void>;
-  get({ binary }: { binary?: boolean }): TrueHexagram | BinaryHexagram;
-  getFuture({ binary }: { binary?: boolean }): TrueHexagram | BinaryHexagram;
-  getChanges(): boolean[];
-  getRandomNumbers(): uint8[] | null;
-  getProvider(): Provider;
+interface HexagramInterface{
+    setFuxi(fuxi: Fuxi): void
+    getFuxi(): Fuxi
+    setKingwen(kingwen: number): void
+    getKingwen(): Kingwen
+    setLines(lines: TrueHexagram): void
+    getLines(): TrueHexagram
+    setBinarySequence(binarySequece: BinaryHexagram): void
+    getBinarySequence(): BinaryHexagram
 }
 
 export class Hexagram implements HexagramInterface {
-  private randomNumbers: uint8[] | null;
-  private hexagram: TrueHexagram | null;
-  private futureHexagram: TrueHexagram | null;
-  private rngProvider: Provider;
+    private fuxi: Fuxi = 0;
+    private kingwen: Kingwen = 0;
+    private lines: TrueHexagram = new Array(6) as TrueHexagram
+    private binarySequnce: BinaryHexagram = new Array(6) as BinaryHexagram
 
-  constructor({ provider = Provider.MathRand }: { provider?: Provider } = {}) {
-    this.randomNumbers = null;
-    this.hexagram = null;
-    this.futureHexagram = null;
-    this.rngProvider = provider;
-  }
-
-  async make(): Promise<void> {
-    const rng = new RNG({ provider: this.rngProvider });
-
-    // optimization: fetch a larger batch of random numbers
-    // 4 numbers are needed per line, 6 lines are needed for the hexagram,
-    // ie 24 random numbers in total
-    this.randomNumbers = (await rng.get({ count: 24 })) as uint8[];
-    const hexagram: TrueHexagram = new Array(6) as TrueHexagram;
-
-    for (var i = 0; i < 6; i++) {
-      const coins: CoinToss = this.randomNumbers.slice(
-        i * 4,
-        i * 4 + 4
-      ) as CoinToss; // pick next 4 numbers from our set of 24
-
-      const normalizedCoins: NormalizedCoinToss = YiJing.normalizeFourUintNumbers(
-        coins
-      );
-      hexagram[i] = YiJing.makeLine(normalizedCoins);
+    constructor({
+        fuxi = 0, 
+        kingwen = 1, 
+        binarySequence = new Array(6) as BinaryHexagram, 
+        lines = new Array(6)  as TrueHexagram
+    } : {
+        fuxi?: Fuxi, 
+        kingwen?: Kingwen, 
+        binarySequence?: BinaryHexagram, 
+        lines?: TrueHexagram
+    } = {}) {
+        this.setFuxi(fuxi),
+        this.setKingwen(kingwen),
+        this.setLines(lines),
+        this.setBinarySequence(binarySequence)
     }
 
-    this.hexagram = hexagram;
-  }
+    /*
+        Getters & Setters
+    */
 
-  async makeFuture() {
-    const { hexagram } = this;
-
-    if (hexagram === null) {
-      throw "make() must be called at least once before makeFuture()";
+    public setFuxi(fuxi: Fuxi): void {
+        this.fuxi = fuxi
     }
 
-    const futureHexagram: TrueHexagram = new Array(6) as TrueHexagram;
-
-    for (var i = hexagram.length - 1; i >= 0; i--) {
-      switch (hexagram[i]) {
-        // changing yin
-        case 0:
-          futureHexagram[i] = 4; // becomes yang
-          break;
-        // changing yang
-        case 1:
-        case 2:
-        case 3:
-          futureHexagram[i] = 9; // becomes yin
-          break;
-
-        default:
-          futureHexagram[i] = hexagram[i];
-          break;
-      }
-    }
-    this.futureHexagram = futureHexagram;
-  }
-
-  get({ binary = false } = {}): TrueHexagram {
-    if (this.hexagram === null) {
-      throw "no hexgram exists, call make() first ";
+    public getFuxi(): Fuxi {
+        return this.fuxi
     }
 
-    if (binary) {
-      return YiJing.hexagramToBinaryHexagram(this.hexagram);
+    public setKingwen(kingwen: number): void {
+        // We have to do so that the kingwen sequence (1 - 64) fits inside the uint6 type (0-63)
+        this.kingwen = kingwen - 1 as Kingwen
     }
 
-    return this.hexagram;
-  }
-
-  getFuture({ binary = false } = {}): TrueHexagram {
-    if (this.futureHexagram === null) {
-      throw "no future hexagram exists, call makeFuture() first ";
+    public getKingwen(): Kingwen {
+        return this.kingwen + 1 as Kingwen
     }
 
-    if (binary) {
-      return YiJing.hexagramToBinaryHexagram(this.futureHexagram);
+    public setLines(lines: TrueHexagram): void {
+        this.lines = lines
     }
 
-    return this.futureHexagram;
-  }
-
-  getChanges(): boolean[] {
-    if (this.hexagram === null || this.futureHexagram === null) {
-      throw "make() and makeFuture() must be called at least once before getChanges()";
+    public getLines():TrueHexagram {
+        return this.lines
     }
 
-    return this.hexagram.map((hexagramLine: Line, i) => {
-      const futureLine: Line = this.futureHexagram?.[i] as Line;
-      if (hexagramLine === futureLine) {
-        return false;
-      } else {
-        return true;
-      }
-    });
-  }
+    public setBinarySequence(binarySequece: BinaryHexagram): void {
+        this.binarySequnce = binarySequece
+    }
 
-  getRandomNumbers(): uint8[] | null {
-    return this.randomNumbers;
-  }
+    public getBinarySequence(): BinaryHexagram {
+        return this.binarySequnce
+    }
 
-  getProvider(): Provider {
-    return this.rngProvider;
-  }
+    /*
+        Fuxi converters
+    */
+    private fuxiToKingWen(): Kingwen {
+        return 0
+    }
+
+    private fuxiToBinary(): BinaryHexagram {
+        return fuxiToBinary(this.fuxi)
+    }
+
+    private fuxiToLines(): TrueHexagram {
+        return new Array(6) as TrueHexagram
+    }
+
+    /*
+        Kingwen converters
+    */
+    private kingwenToFuxi(): Fuxi {}
+    private kingwenToBinary(): BinaryHexagram {}
+    private kingwenToLines(): TrueHexagram {}
+
+    /*
+        Binary converters
+    */
+    private binaryToFuxi():Fuxi {
+        return binaryToFuxi(this.binarySequnce)
+    }
+    private binaryToKingwen(): Kingwen {
+        return binaryToKingWen(this.binarySequnce)
+    }
+    private binaryToLines(): TrueHexagram {}
+
+   
+    /*
+        Line converters
+    */     
+    private linesToFuxi(): Fuxi {}
+    private linesToKingwen(): Kingwen {}
+    private linesToBinary(): BinaryHexagram {
+        return hexagramToBinaryHexagram(this.lines)
+    }   
+
+    private syncState({
+        fuxi, 
+        kingwen, 
+        binarySequence, 
+        lines
+    } : {
+        fuxi?: Fuxi, 
+        kingwen?: Kingwen, 
+        binarySequence?: BinaryHexagram, 
+        lines?: TrueHexagram
+    }): void {
+     
+        if ( fuxi ) {
+            this.setFuxi(fuxi)
+            this.setKingwen(this.fuxiToKingWen())
+            this.setBinarySequence(this.fuxiToBinary())
+            this.setLines(this.fuxiToLines())
+            return
+        }
+
+        if ( kingwen ) {
+            this.setKingwen(kingwen)
+            this.setFuxi(this.kingwenToFuxi())
+            this.setBinarySequence(this.fuxiToBinary())
+            this.setLines(this.fuxiToLines())
+            return
+        }
+
+        if (binarySequence) {
+            this.setBinarySequence(binarySequence)
+            this.setFuxi(this.binaryToFuxi())
+            this.setKingwen(this.binaryToKingwen())
+            this.setLines(this.binaryToLines())            
+            return
+        }
+
+        if (lines) {
+            this.setLines(lines)            
+            this.setFuxi(this.linesToFuxi())
+            this.setKingwen(this.linesToKingwen())
+            this.setBinarySequence(this.linesToBinary())
+            return            
+            return
+        }
+
+        throw new Error ("nothing to sync...")
+
+    }
+
+}
+
+export function testHexagram() {
+    const hexagram = new Hexagram({kingwen: 1})
+    hexagram.getBinarySequence()
 }

@@ -37,10 +37,10 @@ export async function runYiJingTests() {
   console.log(`makeLine(${normalizedCoins}): ${line}`);
 
   /* 
-    The new Hexagram API
+    The new Oracle API
   */
 
-  console.log(`\n.: Hexagram API Tests :.`);
+  console.log(`\n.: Oracle API Tests :.`);
 
   const hexagram = new YiJing.Hexagram(); //{ provider: Provider.AnuQrng });
   await hexagram.make();
