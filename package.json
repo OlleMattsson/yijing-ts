@@ -3,19 +3,16 @@
   "version": "1.0.0",
   "description": "YiJing / I Ching library in TypeScript",
   "main": "dist/index.ts",
-  "types": "dist/index.d.ts",
-  "files": [
-    "/dist"
-  ],    
   "scripts": {
-    "start": "node index.ts",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "compile": "npx tsc",
+    "test": "npx ts-node src/tests.ts"
   },
   "keywords": [
     "yijing",
     "iching"
   ],
-  "author": "Olle Mattsson",
+  "author": "Olle Mattsson <www.ollemattsson.com>",
+  "homepage": "https://github.com/OlleMattsson/yijing-ts",
   "license": "MIT",
   "devDependencies": {
     "ts-node": "^10.9.1",
