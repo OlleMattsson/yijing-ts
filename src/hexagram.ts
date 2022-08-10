@@ -17,7 +17,7 @@ export class Hexagram implements HexagramInterface {
     private fuxi: Fuxi = 0;
     private kingwen: Kingwen = 0;
     private lines: TrueHexagram = new Array(6) as TrueHexagram
-    private binarySequnce: BinaryHexagram = new Array(6) as BinaryHexagram
+    private binarySequence: BinaryHexagram = new Array(6) as BinaryHexagram
 
     constructor({
         fuxi = 0, 
@@ -42,6 +42,7 @@ export class Hexagram implements HexagramInterface {
 
     public setFuxi(fuxi: Fuxi): void {
         this.fuxi = fuxi
+        this.syncState({fuxi})
     }
 
     public getFuxi(): Fuxi {
@@ -51,6 +52,8 @@ export class Hexagram implements HexagramInterface {
     public setKingwen(kingwen: number): void {
         // We have to do so that the kingwen sequence (1 - 64) fits inside the uint6 type (0-63)
         this.kingwen = kingwen - 1 as Kingwen
+        this.syncState({kingwen: this.kingwen})
+
     }
 
     public getKingwen(): Kingwen {
@@ -59,18 +62,21 @@ export class Hexagram implements HexagramInterface {
 
     public setLines(lines: TrueHexagram): void {
         this.lines = lines
+        this.syncState({lines})
+
     }
 
     public getLines():TrueHexagram {
         return this.lines
     }
 
-    public setBinarySequence(binarySequece: BinaryHexagram): void {
-        this.binarySequnce = binarySequece
+    public setBinarySequence(binarySequence: BinaryHexagram): void {
+        this.binarySequence = binarySequence
+        this.syncState({binarySequence})
     }
 
     public getBinarySequence(): BinaryHexagram {
-        return this.binarySequnce
+        return this.binarySequence
     }
 
     /*
