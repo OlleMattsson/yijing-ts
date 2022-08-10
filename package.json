@@ -2,8 +2,11 @@
   "name": "yijing-ts",
   "version": "1.0.0",
   "description": "YiJing / I Ching library in TypeScript",
-  "main": "index.ts",
-  "type": "module",
+  "main": "dist/index.ts",
+  "types": "dist/index.d.ts",
+  "files": [
+    "/dist"
+  ],    
   "scripts": {
     "start": "node index.ts",
     "test": "echo \"Error: no test specified\" && exit 1"
