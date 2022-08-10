@@ -1,8 +1,6 @@
 import {TrueHexagram, BinaryHexagram, Fuxi, Kingwen}from "./types"
 import {fuxiToBinary} from "./fuxiToBinary"
-import {binaryToFuxi } from "./binaryToFuxi"
-import {binaryToKingWen} from "./binaryToKingWen"
-import {hexagramToBinaryHexagram} from "./hexagramToBinaryHexagram"
+import {YiJing} from "./"
 
 interface HexagramInterface{
     setFuxi(fuxi: Fuxi): void
@@ -101,10 +99,10 @@ export class Hexagram implements HexagramInterface {
         Binary converters
     */
     private binaryToFuxi():Fuxi {
-        return binaryToFuxi(this.binarySequnce)
+        return YiJing.binaryToFuxi(this.binarySequnce)
     }
     private binaryToKingwen(): Kingwen {
-        return binaryToKingWen(this.binarySequnce)
+        return YiJing.binaryToKingWen(this.binarySequnce)
     }
     private binaryToLines(): TrueHexagram {}
 
@@ -115,7 +113,7 @@ export class Hexagram implements HexagramInterface {
     private linesToFuxi(): Fuxi {}
     private linesToKingwen(): Kingwen {}
     private linesToBinary(): BinaryHexagram {
-        return hexagramToBinaryHexagram(this.lines)
+        return YiJing.hexagramToBinaryHexagram(this.lines)
     }   
 
     private syncState({
@@ -160,7 +158,6 @@ export class Hexagram implements HexagramInterface {
             this.setKingwen(this.linesToKingwen())
             this.setBinarySequence(this.linesToBinary())
             return            
-            return
         }
 
         throw new Error ("nothing to sync...")
