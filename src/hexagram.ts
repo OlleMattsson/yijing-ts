@@ -37,7 +37,10 @@ export class Hexagram implements HexagramInterface {
         kingwen?: Kingwen, 
         binarySequence?: BinaryHexagram, 
         lines?: TrueHexagram
-    } = {}) {
+    } = {}) {  
+
+        this.validate(arguments[0])
+
         if (fuxi) {
             this.setFuxi(fuxi);
         }
@@ -52,6 +55,21 @@ export class Hexagram implements HexagramInterface {
         }
     }
 
+    private validate(args): void{
+        if (Object.keys(args).length > 1) {
+            throw new Error("Hexagram(): only one property allowed!")
+        }
+
+        if (
+            !args.hasOwnProperty("fuxi") && 
+            !args.hasOwnProperty("kingwen") && 
+            !args.hasOwnProperty("binarySequence") && 
+            !args.hasOwnProperty("lines") 
+        ) {
+            throw new Error(`Hexagram(): no property found or illegal property name`)
+        }
+    }
+    
     /*
         Getters & Setters
     */
