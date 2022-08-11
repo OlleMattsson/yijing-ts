@@ -1,5 +1,5 @@
-import {YiJing} from "./"
-import {Fuxi, Kingwen, BinaryHexagram, TrueHexagram} from "./types"
+import {YiJing} from "../"
+import {Fuxi, Kingwen, BinaryHexagram, TrueHexagram} from "../types"
 
 function linesToFuxi(l: TrueHexagram): Fuxi {
     return 0 as Fuxi

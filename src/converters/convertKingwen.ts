@@ -1,5 +1,5 @@
-import {YiJing} from "./"
-import {Fuxi, Kingwen, BinaryHexagram, TrueHexagram} from "./types"
+import {YiJing} from "../"
+import {Fuxi, Kingwen, BinaryHexagram, TrueHexagram} from "../types"
 
 // TODO: implement
 function kingwenToFuxi(k: Kingwen): Fuxi {

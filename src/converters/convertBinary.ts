@@ -1,5 +1,5 @@
-import {YiJing} from "./"
-import {Fuxi, Kingwen, BinaryHexagram, TrueHexagram} from "./types"
+import {YiJing} from ".."
+import {Fuxi, Kingwen, BinaryHexagram, TrueHexagram} from "../types"
 
 function binaryToFuxi(b: BinaryHexagram):Fuxi {
     return YiJing.binaryToFuxi(this.binarySequence)
