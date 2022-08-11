@@ -30,10 +30,18 @@ export class Hexagram implements HexagramInterface {
         binarySequence?: BinaryHexagram, 
         lines?: TrueHexagram
     } = {}) {
-        this.setFuxi(fuxi),
-        this.setKingwen(kingwen),
-        this.setLines(lines),
-        this.setBinarySequence(binarySequence)
+        if (fuxi) {
+            this.setFuxi(fuxi);
+        }
+        if (kingwen) {
+            this.setKingwen(kingwen);
+        }
+        if (lines) {
+            this.setLines(lines);
+        }
+        if (binarySequence) {
+            this.setBinarySequence(binarySequence);
+        }
     }
 
     /*
