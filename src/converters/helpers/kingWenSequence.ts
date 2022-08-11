@@ -1,4 +1,4 @@
-import { KingWenSequence } from "./types";
+import { KingWenSequence } from "../../types";
 export const kingWenSequence: KingWenSequence = [
   2,
   23,

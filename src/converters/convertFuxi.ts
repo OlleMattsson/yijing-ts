@@ -1,4 +1,4 @@
-import { fuxiToBinary } from "../fuxiToBinary"
+import { fuxiToBinary } from "./helpers/fuxiToBinary"
 import {Fuxi, Kingwen, BinaryHexagram, TrueHexagram} from "../types"
 
 // TODO: implement
