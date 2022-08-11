@@ -12,6 +12,15 @@ interface HexagramInterface{
     getBinarySequence(): BinaryHexagram
 }
 
+/*
+
+do this:  const hexagram = New Hexagram({fuxi: 1})
+ie. only call constructor with one prop!
+
+NOT this: const hexagram = New Hexagram({fuxi: 1, kingwen: 1})
+=> will leed to unknown consequences until some sort of XOR check for those props are in place =) 
+
+*/
 export class Hexagram implements HexagramInterface {
     private fuxi: Fuxi = 0;
     private kingwen: Kingwen = 0;
@@ -19,10 +28,10 @@ export class Hexagram implements HexagramInterface {
     private binarySequence: BinaryHexagram = new Array(6) as BinaryHexagram
 
     constructor({
-        fuxi = 0, 
-        kingwen = 1, 
-        binarySequence = new Array(6) as BinaryHexagram, 
-        lines = new Array(6)  as TrueHexagram
+        fuxi, 
+        kingwen, 
+        binarySequence, 
+        lines
     } : {
         fuxi?: Fuxi, 
         kingwen?: Kingwen, 
