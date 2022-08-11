@@ -1,13 +1,18 @@
 import {YiJing} from ".."
 import {Fuxi, Kingwen, BinaryHexagram, TrueHexagram} from "../types"
+import {binaryToFuxi} from "./helpers/binaryToFuxi"
+import {binaryToKingWen} from "./helpers/binaryToKingWen"
 
 function linesToFuxi(l: TrueHexagram): Fuxi {
-    return 0 as Fuxi
+    const b = linesToBinary(l)
+    return binaryToFuxi(b)
+}
 
-}
 function linesToKingwen(l: TrueHexagram): Kingwen {
-    return 1 as Kingwen
+    const b = linesToBinary(l)
+    return binaryToKingWen(b)
 }
+
 function linesToBinary(l: TrueHexagram): BinaryHexagram {
     return YiJing.hexagramToBinaryHexagram(l)
 }   

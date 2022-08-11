@@ -37,13 +37,13 @@ export class Hexagram implements HexagramInterface {
             return
         }
         if (kingwen) {
-            this.setKingwen(kingwen);
+            this.setKingwen(kingwen, false);
         }
         if (lines) {
-            this.setLines(lines);
+            this.setLines(lines, false);
         }
         if (binarySequence) {
-            this.setBinarySequence(binarySequence);
+            this.setBinarySequence(binarySequence, false);
         }
     }
 

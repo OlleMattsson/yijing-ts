@@ -1,17 +1,22 @@
 import {Fuxi, Kingwen, BinaryHexagram, TrueHexagram} from "../types"
+import {kingWenSequence} from "./helpers/kingWenSequence"
+import {fuxiToBinary} from "./helpers/fuxiToBinary"
+import {binaryToLines} from "./helpers/binaryToLines"
 
-// TODO: implement
 function kingwenToFuxi(k: Kingwen): Fuxi {
-    return 0 as Fuxi
+    const fuxi = kingWenSequence.indexOf(k) as Fuxi
+    return fuxi
 }
 
-// TODO: implement
 function kingwenToBinary(k: Kingwen): BinaryHexagram {
-    return new Array(6) as BinaryHexagram
+    const f = kingwenToFuxi(k)
+    return fuxiToBinary(f)
 }
-// TODO: implement
+
 function kingwenToLines(k: Kingwen): TrueHexagram {
-    return new Array(6) as TrueHexagram
+    const f = kingwenToFuxi(k)
+    const b = fuxiToBinary(f)
+    return binaryToLines(b) 
 }
 
 export function convertFromKingwen(k:Kingwen): [Fuxi, TrueHexagram, BinaryHexagram ] {
