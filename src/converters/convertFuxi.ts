@@ -1,10 +1,11 @@
 import {Fuxi, Kingwen, BinaryHexagram, TrueHexagram} from "../types"
 import { fuxiToBinary } from "./helpers/fuxiToBinary"
 import { fuxiToKingwen } from "./helpers/fuxiToKingwen"
+import { binaryToLines } from "./helpers/binaryToLines"
 
-// TODO: implement
 function fuxiToLines(f: Fuxi): TrueHexagram {
-    return [1,2,3,4,5,6] as TrueHexagram
+    const binary: BinaryHexagram = fuxiToBinary(f)
+    return binaryToLines(binary)
 }
 
 export function convertFuxi(f:Fuxi): [Kingwen, TrueHexagram, BinaryHexagram ] {
