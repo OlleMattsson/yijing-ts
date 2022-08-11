@@ -6,11 +6,13 @@ import { normalizeFourUintNumbers, makeLine } from "./makeLine";
 import { Oracle } from "./oracle";
 import { hexagramToBinaryHexagram } from "./converters/helpers/hexagramToBinaryHexagram";
 import { Converters as Convert } from "./converters";
+import { Hexagram } from "./hexagram";
 
 export const YiJing = {
   /*
     Main API
   */
+  Hexagram,
   Oracle,
   Convert,
 
