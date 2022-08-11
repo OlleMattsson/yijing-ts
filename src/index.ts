@@ -1,18 +1,18 @@
-import { fuxiToBinaryLegacy, fuxiToBinary } from "./fuxiToBinary";
-import { binaryToFuxi } from "./binaryToFuxi";
-import { kingWenSequence } from "./kingWenSequence";
-import { binaryToKingWen } from "./binaryToKingWen";
+import { fuxiToBinaryLegacy, fuxiToBinary } from "./converters/helpers/fuxiToBinary";
+import { binaryToFuxi } from "./converters/helpers/binaryToFuxi";
+import { kingWenSequence } from "./converters/helpers/kingWenSequence";
+import { binaryToKingWen } from "./converters/helpers/binaryToKingWen";
 import { normalizeFourUintNumbers, makeLine } from "./makeLine";
 import { Oracle } from "./oracle";
-import { hexagramToBinaryHexagram } from "./hexagramToBinaryHexagram";
-import { Converters } from "./converters";
+import { hexagramToBinaryHexagram } from "./converters/helpers/hexagramToBinaryHexagram";
+import { Converters as Convert } from "./converters";
 
 export const YiJing = {
   /*
     Main API
   */
   Oracle,
-  Converters,
+  Convert,
 
   /* 
     Helpers 

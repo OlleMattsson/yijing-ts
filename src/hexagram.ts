@@ -1,5 +1,5 @@
 import {TrueHexagram, BinaryHexagram, Fuxi, Kingwen}from "./types"
-import {YiJing} from "./"
+import {YiJing} from "."
 
 interface HexagramInterface{
     setFuxi(fuxi: Fuxi): void
@@ -48,7 +48,7 @@ export class Hexagram implements HexagramInterface {
     */
 
     public setFuxi(f: Fuxi): void {
-        const [kingwen, lines, binarySequence] = YiJing.convertFuxi(f);
+        const [kingwen, lines, binarySequence] = YiJing.Convert.convertFuxi(f);
         this.fuxi = f;
         this.setKingwen(kingwen);
         this.setLines(lines);
@@ -60,7 +60,7 @@ export class Hexagram implements HexagramInterface {
     }
 
     public setKingwen(k: Kingwen): void {
-        const [fuxi, lines, binarySequence] = YiJing.convertKingwen(k);
+        const [fuxi, lines, binarySequence] = YiJing.Convert.convertKingwen(k);
 
         // kingwen sequence (1 - 64) must fit inside the uint6 type (0-63)
         this.kingwen = k - 1 as Kingwen;
@@ -75,7 +75,7 @@ export class Hexagram implements HexagramInterface {
     }
 
     public setLines(l: TrueHexagram): void {
-        const [ fuxi, kingwen, binary] = YiJing.convertLines(l);
+        const [ fuxi, kingwen, binary] = YiJing.Convert.convertLines(l);
         this.lines = l;
         this.setKingwen(kingwen);
         this.setBinarySequence(binary);
@@ -88,7 +88,7 @@ export class Hexagram implements HexagramInterface {
 
     public setBinarySequence(b: BinaryHexagram): void {
         this.binarySequence = b;
-        const [kingwen, lines, fuxi] = YiJing.convertBinary(b);
+        const [kingwen, lines, fuxi] = YiJing.Convert.convertBinary(b);
         this.setKingwen(kingwen);
         this.setLines(lines);
         this.setFuxi(fuxi);   
