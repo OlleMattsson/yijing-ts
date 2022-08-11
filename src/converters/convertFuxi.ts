@@ -1,10 +1,6 @@
-import { fuxiToBinary } from "./helpers/fuxiToBinary"
 import {Fuxi, Kingwen, BinaryHexagram, TrueHexagram} from "../types"
-
-// TODO: implement
-function fuxiToKingwen(f: Fuxi): Kingwen {
-    return 1 as Kingwen
-}
+import { fuxiToBinary } from "./helpers/fuxiToBinary"
+import { fuxiToKingwen } from "./helpers/fuxiToKingwen"
 
 // TODO: implement
 function fuxiToLines(f: Fuxi): TrueHexagram {
