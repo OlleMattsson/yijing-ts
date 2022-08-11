@@ -5,5 +5,5 @@ import { BinaryHexagram, TrueHexagram } from "../../types";
     a corresponding hexagram with Lines. 
 */
 export function binaryToLines(b: BinaryHexagram): TrueHexagram {
-    return b.map((i) => i === 1 ? 0 : 1  ) as TrueHexagram
+    return b.map((i) => i === 1 ? 0 : 1  ) as TrueHexagram;
 }

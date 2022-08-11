@@ -19,7 +19,7 @@ export const YiJing = {
   /* 
     Helpers 
   */
-    linesToBinary,
+  linesToBinary,
   fuxiToBinary,
   fuxiToBinaryLegacy,
   binaryToFuxi,

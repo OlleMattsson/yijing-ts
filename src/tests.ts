@@ -55,38 +55,38 @@ export async function runYiJingTests() {
   console.log(`oracle.getFuture(binary): ${oracle.getFuture({ binary: true })}`);
   console.log(`oracle.getChanges():      ${oracle.getChanges()}`);
 
-      /*
-      Hexagram API
-    */
+  /*
+    Hexagram API
+  */
 
-      console.log(`\n.: Hexagram API :.`)
-      console.log(`From Fuxi`)
-      const hexagramFromFuxi = new YiJing.Hexagram({fuxi: 5})
-      console.log(hexagramFromFuxi.getFuxi())
-      console.log(hexagramFromFuxi.getKingwen())
-      console.log(hexagramFromFuxi.getLines())
-      console.log(hexagramFromFuxi.getBinarySequence())
-  
-      console.log(`\nFrom Kingwen`)
-      const hexagramFromKingwen = new YiJing.Hexagram({kingwen: 35})
-      console.log(hexagramFromKingwen.getFuxi())
-      console.log(hexagramFromKingwen.getKingwen())
-      console.log(hexagramFromKingwen.getLines())
-      console.log(hexagramFromKingwen.getBinarySequence()) 
-  
-      console.log(`\nFrom Binary Sequence`)
-      const hexagramFromBinary = new YiJing.Hexagram({binarySequence: [0,0,0,1,0,1]})
-      console.log(hexagramFromBinary.getFuxi())
-      console.log(hexagramFromBinary.getKingwen())
-      console.log(hexagramFromBinary.getLines())
-      console.log(hexagramFromBinary.getBinarySequence())  
-  
-      console.log(`\nFrom Lines`)
-      const hexagramFromLines = new YiJing.Hexagram({lines: [4,5,6,9,8,10]})
-      console.log(hexagramFromLines.getFuxi())
-      console.log(hexagramFromLines.getKingwen())
-      console.log(hexagramFromLines.getLines())
-      console.log(hexagramFromLines.getBinarySequence())    
+  console.log(`\n.: Hexagram API :.`);
+  console.log(`From Fuxi`);
+  const hexagramFromFuxi = new YiJing.Hexagram({fuxi: 5});
+  console.log(hexagramFromFuxi.getFuxi());
+  console.log(hexagramFromFuxi.getKingwen());
+  console.log(hexagramFromFuxi.getLines());
+  console.log(hexagramFromFuxi.getBinarySequence());
+
+  console.log(`\nFrom Kingwen`);
+  const hexagramFromKingwen = new YiJing.Hexagram({kingwen: 35});
+  console.log(hexagramFromKingwen.getFuxi());
+  console.log(hexagramFromKingwen.getKingwen());
+  console.log(hexagramFromKingwen.getLines());
+  console.log(hexagramFromKingwen.getBinarySequence());
+
+  console.log(`\nFrom Binary Sequence`);
+  const hexagramFromBinary = new YiJing.Hexagram({binarySequence: [0,0,0,1,0,1]});
+  console.log(hexagramFromBinary.getFuxi());
+  console.log(hexagramFromBinary.getKingwen());
+  console.log(hexagramFromBinary.getLines());
+  console.log(hexagramFromBinary.getBinarySequence());
+
+  console.log(`\nFrom Lines`);
+  const hexagramFromLines = new YiJing.Hexagram({lines: [4,5,6,9,8,10]});
+  console.log(hexagramFromLines.getFuxi());
+  console.log(hexagramFromLines.getKingwen());
+  console.log(hexagramFromLines.getLines());
+  console.log(hexagramFromLines.getBinarySequence());    
 }
 
 runYiJingTests()

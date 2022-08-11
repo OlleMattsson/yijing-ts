@@ -2,14 +2,14 @@ import {TrueHexagram, BinaryHexagram, Fuxi, Kingwen}from "./types"
 import {YiJing} from "."
 
 interface HexagramInterface{
-    setFuxi(fuxi: Fuxi, halt: boolean): void
-    getFuxi(): Fuxi
-    setKingwen(kingwen: number, halt: boolean): void
-    getKingwen(): Kingwen
-    setLines(lines: TrueHexagram, halt: boolean): void
-    getLines(): TrueHexagram
-    setBinarySequence(binarySequece: BinaryHexagram, halt: boolean): void
-    getBinarySequence(): BinaryHexagram
+    setFuxi(fuxi: Fuxi, halt: boolean): void;
+    getFuxi(): Fuxi;
+    setKingwen(kingwen: number, halt: boolean): void;
+    getKingwen(): Kingwen;
+    setLines(lines: TrueHexagram, halt: boolean): void;
+    getLines(): TrueHexagram;
+    setBinarySequence(binarySequece: BinaryHexagram, halt: boolean): void;
+    getBinarySequence(): BinaryHexagram;
 }
 
 export class Hexagram implements HexagramInterface {
@@ -30,11 +30,10 @@ export class Hexagram implements HexagramInterface {
         lines?: TrueHexagram
     } = {}) {  
 
-        this.validate(arguments[0])
+        this.validate(arguments[0]);
 
         if (fuxi) {
             this.setFuxi(fuxi, false);
-            return
         }
         if (kingwen) {
             this.setKingwen(kingwen, false);
@@ -49,7 +48,7 @@ export class Hexagram implements HexagramInterface {
 
     private validate(args): void{
         if (Object.keys(args).length > 1) {
-            throw new Error("Hexagram(): only one property allowed!")
+            throw new Error("Hexagram(): only one property allowed!");
         }
 
         if (
@@ -58,14 +57,10 @@ export class Hexagram implements HexagramInterface {
             !args.hasOwnProperty("binarySequence") && 
             !args.hasOwnProperty("lines") 
         ) {
-            throw new Error(`Hexagram(): no property found or illegal property name`)
+            throw new Error(`Hexagram(): no property found or illegal property name`);
         }
     }
     
-    /*
-        Getters & Setters
-    */
-
     public setFuxi(f: Fuxi, halt: boolean = true): void {
         this.fuxi = f;
         if (!halt) {
@@ -124,9 +119,4 @@ export class Hexagram implements HexagramInterface {
     public getBinarySequence(): BinaryHexagram {
         return this.binarySequence;
     }
-}
-
-export function testHexagram() {
-    const hexagram = new Hexagram({kingwen: 1});
-    hexagram.getBinarySequence();
 }

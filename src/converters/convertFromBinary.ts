@@ -1,17 +1,17 @@
-import {YiJing} from ".."
-import {Fuxi, Kingwen, BinaryHexagram, TrueHexagram} from "../types"
-import {binaryToLines as _binaryToLines} from "./helpers/binaryToLines"
+import {YiJing} from "..";
+import {Fuxi, Kingwen, BinaryHexagram, TrueHexagram} from "../types";
+import {binaryToLines as _binaryToLines} from "./helpers/binaryToLines";
 
 function binaryToFuxi(b: BinaryHexagram):Fuxi {
-    return YiJing.binaryToFuxi(b)
+    return YiJing.binaryToFuxi(b);
 }
 
 function binaryToKingwen(b: BinaryHexagram): Kingwen {
-    return YiJing.binaryToKingWen(b)
+    return YiJing.binaryToKingWen(b);
 }
 
 function binaryToLines(b: BinaryHexagram): TrueHexagram {
-    return _binaryToLines(b)
+    return _binaryToLines(b);
 }
 
 export function convertFromBinary(b:BinaryHexagram): [Kingwen, TrueHexagram, Fuxi ] {
