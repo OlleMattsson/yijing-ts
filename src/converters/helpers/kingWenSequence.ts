@@ -1,3 +1,10 @@
+/*
+  Mapping from fuxi to kingwen,
+  ie fuxi 0 -> kingwen 2 
+     fuxi 1 -> kingwen 23
+     etc...
+*/
+
 import { KingWenSequence } from "../../types";
 export const kingWenSequence: KingWenSequence = [
   2,
