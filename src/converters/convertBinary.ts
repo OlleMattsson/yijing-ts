@@ -2,11 +2,11 @@ import {YiJing} from ".."
 import {Fuxi, Kingwen, BinaryHexagram, TrueHexagram} from "../types"
 
 function binaryToFuxi(b: BinaryHexagram):Fuxi {
-    return YiJing.binaryToFuxi(this.binarySequence)
+    return YiJing.binaryToFuxi(b)
 }
 
 function binaryToKingwen(b: BinaryHexagram): Kingwen {
-    return YiJing.binaryToKingWen(this.binarySequence)
+    return YiJing.binaryToKingWen(b)
 }
 
 // TODO: implement
