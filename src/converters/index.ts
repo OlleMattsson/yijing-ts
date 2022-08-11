@@ -1,11 +1,11 @@
-import { convertFuxi } from "./convertFuxi";
-import { convertBinary } from "./convertBinary";
-import { convertKingwen } from "./convertKingwen";
-import { convertLines } from "./convertLines";
+import { convertFromFuxi } from "./convertFromFuxi";
+import { convertFromKingwen } from "./convertFromKingwen";
+import { convertFromBinary } from "./convertFromBinary";
+import { convertFromLines } from "./convertFromLines";
 
 export const Converters = {
-    convertBinary,
-    convertFuxi,
-    convertKingwen,
-    convertLines
+    convertFromFuxi,
+    convertFromKingwen,
+    convertFromBinary,
+    convertFromLines
 }

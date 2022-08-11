@@ -8,7 +8,7 @@ function fuxiToLines(f: Fuxi): TrueHexagram {
     return binaryToLines(binary)
 }
 
-export function convertFuxi(f:Fuxi): [Kingwen, TrueHexagram, BinaryHexagram ] {
+export function convertFromFuxi(f:Fuxi): [Kingwen, TrueHexagram, BinaryHexagram ] {
     return [
         fuxiToKingwen(f),
         fuxiToLines(f),

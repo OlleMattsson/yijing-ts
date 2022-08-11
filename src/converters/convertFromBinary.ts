@@ -14,7 +14,7 @@ function binaryToLines(b: BinaryHexagram): TrueHexagram {
     return [1,2,3,4,5,6] as TrueHexagram
 }
 
-export function convertBinary(b:BinaryHexagram): [Kingwen, TrueHexagram, Fuxi ] {
+export function convertFromBinary(b:BinaryHexagram): [Kingwen, TrueHexagram, Fuxi ] {
     return [
         binaryToKingwen(b),
         binaryToLines(b),
