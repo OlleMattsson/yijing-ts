@@ -4,7 +4,7 @@
 import { BinaryHexagram, TrueHexagram } from "../../types";
 
 // (6) [5, 13, 13, 14, 2, 13] => [1, 0, 0, 0, 1, 0]
-export function hexagramToBinaryHexagram(h: TrueHexagram): BinaryHexagram {
+export function linesToBinary(h: TrueHexagram): BinaryHexagram {
   let res = new Array(6) as BinaryHexagram;
   for (var i = 0, l = h.length; i < l; i++) {
     switch (h[i]) {

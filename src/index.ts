@@ -4,7 +4,7 @@ import { kingWenSequence } from "./converters/helpers/kingWenSequence";
 import { binaryToKingWen } from "./converters/helpers/binaryToKingWen";
 import { normalizeFourUintNumbers, makeLine } from "./makeLine";
 import { Oracle } from "./oracle";
-import { hexagramToBinaryHexagram } from "./converters/helpers/hexagramToBinaryHexagram";
+import { linesToBinary } from "./converters/helpers/linesToBinary";
 import { Converters as Convert } from "./converters";
 import { Hexagram } from "./hexagram";
 
@@ -19,7 +19,7 @@ export const YiJing = {
   /* 
     Helpers 
   */
-  hexagramToBinaryHexagram,
+    linesToBinary,
   fuxiToBinary,
   fuxiToBinaryLegacy,
   binaryToFuxi,

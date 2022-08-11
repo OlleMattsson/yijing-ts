@@ -14,7 +14,7 @@ function linesToKingwen(l: TrueHexagram): Kingwen {
 }
 
 function linesToBinary(l: TrueHexagram): BinaryHexagram {
-    return YiJing.hexagramToBinaryHexagram(l)
+    return YiJing.linesToBinary(l)
 }   
 
 export function convertFromLines(l:TrueHexagram): [Fuxi, Kingwen, BinaryHexagram ] {

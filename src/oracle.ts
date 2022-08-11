@@ -92,7 +92,7 @@ export class Oracle implements OracleInterface {
     }
 
     if (binary) {
-      return YiJing.hexagramToBinaryHexagram(this.hexagram);
+      return YiJing.linesToBinary(this.hexagram);
     }
 
     return this.hexagram;
@@ -104,7 +104,7 @@ export class Oracle implements OracleInterface {
     }
 
     if (binary) {
-      return YiJing.hexagramToBinaryHexagram(this.futureHexagram);
+      return YiJing.linesToBinary(this.futureHexagram);
     }
 
     return this.futureHexagram;
