@@ -8,30 +8,33 @@ import {
 } from "./types";
 import { RNG, Provider } from "rng-ts";
 import { YiJing } from ".";
+import { Hexagram } from "./hexagram";
 
 export interface OracleInterface {
   divinate(): Promise<void>;
-  makeFuture(): Promise<void>;
-  get({ binary }: { binary?: boolean }): TrueHexagram | BinaryHexagram;
-  getFuture({ binary }: { binary?: boolean }): TrueHexagram | BinaryHexagram;
-  getChanges(): boolean[];
+  getHexagram({ binary }: { binary?: boolean }): Hexagram;
+  getFutureHexagram(): Hexagram;
+  getChanges(): boolean[];  
   getRandomNumbers(): uint8[] | null;
   getProvider(): Provider;
 }
 
 export class Oracle implements OracleInterface {
   private randomNumbers: uint8[] | null;
-  private hexagram: TrueHexagram | null;
-  private futureHexagram: TrueHexagram | null;
+  private hexagram: Hexagram | null;
+  private futureHexagram: Hexagram | null;
+  private changes: boolean[] | null;
   private rngProvider: Provider;
 
   constructor({ provider = Provider.MathRand }: { provider?: Provider } = {}) {
     this.randomNumbers = null;
     this.hexagram = null;
-    this.futureHexagram = null;
     this.rngProvider = provider;
   }
 
+  // The divinate function must be called at least once before the getters work.
+  // This is because it's an async function and thus can't be a part of the
+  // constructor.
   async divinate(): Promise<void> {
     const rng = new RNG({ provider: this.rngProvider });
 
@@ -39,7 +42,7 @@ export class Oracle implements OracleInterface {
     // 4 numbers are needed per line, 6 lines are needed for the hexagram,
     // ie 24 random numbers in total
     this.randomNumbers = (await rng.get({ count: 24 })) as uint8[];
-    const hexagram: TrueHexagram = new Array(6) as TrueHexagram;
+    const lines: TrueHexagram = new Array(6) as TrueHexagram;
 
     for (var i = 0; i < 6; i++) {
       const coins: CoinToss = this.randomNumbers.slice(
@@ -50,79 +53,33 @@ export class Oracle implements OracleInterface {
       const normalizedCoins: NormalizedCoinToss = YiJing.normalizeFourUintNumbers(
         coins
       );
-      hexagram[i] = YiJing.makeLine(normalizedCoins);
+      lines[i] = YiJing.makeLine(normalizedCoins);
     }
 
-    this.hexagram = hexagram;
+    this.hexagram = new Hexagram({lines})
+    this.futureHexagram = new Hexagram({lines: this.getFutureHexagramLines(lines)})
+    this.changes = this.calculateChanges()
   }
 
-  async makeFuture() {
-    const { hexagram } = this;
-
-    if (hexagram === null) {
-      throw "make() must be called at least once before makeFuture()";
-    }
-
-    const futureHexagram: TrueHexagram = new Array(6) as TrueHexagram;
-
-    for (var i = hexagram.length - 1; i >= 0; i--) {
-      switch (hexagram[i]) {
-        // changing yin
-        case 0:
-          futureHexagram[i] = 4; // becomes yang
-          break;
-        // changing yang
-        case 1:
-        case 2:
-        case 3:
-          futureHexagram[i] = 9; // becomes yin
-          break;
-
-        default:
-          futureHexagram[i] = hexagram[i];
-          break;
-      }
-    }
-    this.futureHexagram = futureHexagram;
-  }
-
-  get({ binary = false } = {}): TrueHexagram {
+  getHexagram({ binary = false } = {}): Hexagram {
     if (this.hexagram === null) {
-      throw "no hexgram exists, call make() first ";
+      throw "no hexgram exists, call divinate() first ";
     }
-
-    if (binary) {
-      return YiJing.linesToBinary(this.hexagram);
-    }
-
     return this.hexagram;
   }
 
-  getFuture({ binary = false } = {}): TrueHexagram {
-    if (this.futureHexagram === null) {
-      throw "no future hexagram exists, call makeFuture() first ";
-    }
-
-    if (binary) {
-      return YiJing.linesToBinary(this.futureHexagram);
-    }
-
+  getFutureHexagram(): Hexagram {
+    if (this.hexagram === null) {
+      throw "no hexgram exists, call divinate() first ";
+    }  
     return this.futureHexagram;
   }
 
-  getChanges(): boolean[] {
-    if (this.hexagram === null || this.futureHexagram === null) {
-      throw "make() and makeFuture() must be called at least once before getChanges()";
-    }
-
-    return this.hexagram.map((hexagramLine: Line, i) => {
-      const futureLine: Line = this.futureHexagram?.[i] as Line;
-      if (hexagramLine === futureLine) {
-        return false;
-      } else {
-        return true;
-      }
-    });
+  getChanges() : boolean[] {
+    if (this.changes === null) {
+      throw "no hexgram exists, call divinate() first ";
+    }  
+    return this.changes;
   }
 
   getRandomNumbers(): uint8[] | null {
@@ -131,5 +88,45 @@ export class Oracle implements OracleInterface {
 
   getProvider(): Provider {
     return this.rngProvider;
+  }
+
+  private getFutureHexagramLines(lines): TrueHexagram {
+    const futureLines: TrueHexagram = new Array(6) as TrueHexagram;
+
+    for (var i = lines.length - 1; i >= 0; i--) {
+      switch (lines[i]) {
+        // changing yin
+        case 0:
+          futureLines[i] = 4; // becomes yang
+          break;
+        // changing yang
+        case 1:
+        case 2:
+        case 3:
+          futureLines[i] = 9; // becomes yin
+          break;
+
+        default:
+          futureLines[i] = lines[i];
+          break;
+      }
+    }
+    
+    return futureLines
+  }   
+
+  private calculateChanges() : boolean[]{
+    if (this.hexagram === null || this.futureHexagram === null) {
+      throw "make() and makeFuture() must be called at least once before getChanges()";
+      }
+
+      return this.hexagram.getLines().map((hexagramLine: Line, i) => {
+      const futureLine: Line = this.futureHexagram.getLines()?.[i] as Line;
+      if (hexagramLine === futureLine) {
+          return false;
+      } else {
+          return true;
+      }
+      });  
   }
 }

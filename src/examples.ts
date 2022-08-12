@@ -9,34 +9,6 @@ export async function runYiJingTests() {
   
   console.log(`\n ${UnicodeHex1} YiJing Tests ${UnicodeHex2} \n`);
 
-  console.log(`.: Helper Unit Tests:.`);
-
-  const fuxi: Fuxi = 11;
-  const binaryHexagram: BinaryHexagram = [0, 0, 1, 0, 1, 1];
-  const rng = new RNG();
-  const coins = (await rng.get({ count: 4 })) as CoinToss;
-
-  console.log(`fuxiToBinaryLegacy(${fuxi}): `, YiJing.fuxiToBinaryLegacy(fuxi));
-
-  console.log(`fuxiToBinary(${fuxi}): `, YiJing.fuxiToBinary(fuxi));
-
-  console.log(
-    `binaryToFuxi([${binaryHexagram}]): `,
-    YiJing.binaryToFuxi(binaryHexagram)
-  );
-
-  console.log(
-    `binaryToKingWen([${binaryHexagram}])`,
-    YiJing.binaryToKingWen(binaryHexagram)
-  );
-
-  // make a line the new way
-  const normalizedCoins = YiJing.normalizeFourUintNumbers(coins);
-  console.log(`normalizeFourUintNumbers(${coins}): ${normalizedCoins}`);
-
-  const line = YiJing.makeLine(normalizedCoins);
-  console.log(`makeLine(${normalizedCoins}): ${line}`);
-
   /* 
     The new Oracle API
   */
@@ -45,16 +17,22 @@ export async function runYiJingTests() {
 
   const oracle = new YiJing.Oracle(); //{ provider: Provider.AnuQrng });
   await oracle.divinate();
-  oracle.makeFuture();
+  const hexagram = oracle.getHexagram()
+  const futureHexagram = oracle.getFutureHexagram()
+  const changes = oracle.getChanges()
 
-  console.log(`oracle.getProvider()      ${oracle.getProvider()}`);
-  console.log(`oracle.getRandomNumbers() ${oracle.getRandomNumbers()}`);
-  console.log(`oracle.get():             ${oracle.get()}`);
-  console.log(`oracle.getFuture():       ${oracle.getFuture()}`);
-  console.log(`oracle.get(binary):       ${oracle.get({ binary: true })}`);
-  console.log(`oracle.getFuture(binary): ${oracle.getFuture({ binary: true })}`);
-  console.log(`oracle.getChanges():      ${oracle.getChanges()}`);
-
+  console.log(`oracle.getProvider()                            ${oracle.getProvider()}`);
+  console.log(`oracle.getRandomNumbers()                       ${oracle.getRandomNumbers()}`);
+  console.log(`oracle.getHexagram().getLines():                ${hexagram.getLines()}`);
+  console.log(`oracle.getHexagram().getFuxi():                 ${hexagram.getFuxi()}`);
+  console.log(`oracle.getHexagram().getKingwen():              ${hexagram.getKingwen()}`);
+  console.log(`oracle.getHexagram().getBinarySequence():       ${hexagram.getBinarySequence()}`);
+  console.log(`oracle.getFutureHexagram().getLines():          ${futureHexagram.getLines()}`);
+  console.log(`oracle.getFutureHexagram().getFuxi():           ${futureHexagram.getFuxi()}`);
+  console.log(`oracle.getFutureHexagram().getKingwen():        ${futureHexagram.getKingwen()}`);
+  console.log(`oracle.getFutureHexagram().getBinarySequence(): ${futureHexagram.getBinarySequence()}`);
+  console.log(`oracle.getChanges():                            ${changes}`);
+  
   /*
     Hexagram API
   */
@@ -86,7 +64,8 @@ export async function runYiJingTests() {
   console.log(hexagramFromLines.getFuxi());
   console.log(hexagramFromLines.getKingwen());
   console.log(hexagramFromLines.getLines());
-  console.log(hexagramFromLines.getBinarySequence());    
+  console.log(hexagramFromLines.getBinarySequence()); 
+
 }
 
 runYiJingTests()
