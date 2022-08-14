@@ -1,6 +1,4 @@
 import { YiJing } from ".";
-import { BinaryHexagram, Fuxi, CoinToss } from "./types";
-import { RNG, Provider } from "rng-ts";
 
 const UnicodeHex1 = "\u4DC0";
 const UnicodeHex2 = "\u4DC1";
@@ -9,30 +7,6 @@ export async function runYiJingTests() {
   
   console.log(`\n ${UnicodeHex1} YiJing Tests ${UnicodeHex2} \n`);
 
-  /* 
-    The new Oracle API
-  */
-
-  console.log(`\n.: Oracle API Tests :.`);
-
-  const oracle = new YiJing.Oracle(); //{ provider: Provider.AnuQrng });
-  await oracle.divinate();
-  const hexagram = oracle.getHexagram()
-  const futureHexagram = oracle.getFutureHexagram()
-  const changes = oracle.getChanges()
-
-  console.log(`oracle.getProvider()                            ${oracle.getProvider()}`);
-  console.log(`oracle.getRandomNumbers()                       ${oracle.getRandomNumbers()}`);
-  console.log(`oracle.getHexagram().getLines():                ${hexagram.getLines()}`);
-  console.log(`oracle.getHexagram().getFuxi():                 ${hexagram.getFuxi()}`);
-  console.log(`oracle.getHexagram().getKingwen():              ${hexagram.getKingwen()}`);
-  console.log(`oracle.getHexagram().getBinarySequence():       ${hexagram.getBinarySequence()}`);
-  console.log(`oracle.getFutureHexagram().getLines():          ${futureHexagram.getLines()}`);
-  console.log(`oracle.getFutureHexagram().getFuxi():           ${futureHexagram.getFuxi()}`);
-  console.log(`oracle.getFutureHexagram().getKingwen():        ${futureHexagram.getKingwen()}`);
-  console.log(`oracle.getFutureHexagram().getBinarySequence(): ${futureHexagram.getBinarySequence()}`);
-  console.log(`oracle.getChanges():                            ${changes}`);
-  
   /*
     Hexagram API
   */
@@ -65,6 +39,32 @@ export async function runYiJingTests() {
   console.log(hexagramFromLines.getKingwen());
   console.log(hexagramFromLines.getLines());
   console.log(hexagramFromLines.getBinarySequence()); 
+
+  /* 
+    Oracle API
+  */
+
+  console.log(`\n.: Oracle API Tests :.`);
+
+  const oracle = new YiJing.Oracle(); //({ provider: Provider.AnuQrng });
+  await oracle.divinate();
+  const hexagram = oracle.getHexagram()
+  const futureHexagram = oracle.getFutureHexagram()
+  const changes = oracle.getChanges()
+
+  console.log(`oracle.getProvider()                            ${oracle.getProvider()}`);
+  console.log(`oracle.getRandomNumbers()                       ${oracle.getRandomNumbers()}`);
+  console.log(`oracle.getHexagram().getLines():                ${hexagram.getLines()}`);
+  console.log(`oracle.getHexagram().getFuxi():                 ${hexagram.getFuxi()}`);
+  console.log(`oracle.getHexagram().getKingwen():              ${hexagram.getKingwen()}`);
+  console.log(`oracle.getHexagram().getBinarySequence():       ${hexagram.getBinarySequence()}`);
+  console.log(`oracle.getFutureHexagram().getLines():          ${futureHexagram.getLines()}`);
+  console.log(`oracle.getFutureHexagram().getFuxi():           ${futureHexagram.getFuxi()}`);
+  console.log(`oracle.getFutureHexagram().getKingwen():        ${futureHexagram.getKingwen()}`);
+  console.log(`oracle.getFutureHexagram().getBinarySequence(): ${futureHexagram.getBinarySequence()}`);
+  console.log(`oracle.getChanges():                            ${changes}`);
+  
+
 
 }
 
