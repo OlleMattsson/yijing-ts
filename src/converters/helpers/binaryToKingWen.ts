@@ -2,10 +2,11 @@
 // eg. [0,0,0,0,1,1] -> 20
 
 import { BinaryHexagram, Kingwen } from "../../types";
-import { YiJing } from "../..";
+import { kingWenSequence } from "./kingWenSequence";
+import {binaryToFuxi} from "./binaryToFuxi"
 
 export const binaryToKingWen = (
   hexagram: BinaryHexagram = [0, 0, 0, 0, 0, 0]
 ): Kingwen => {
-  return YiJing.kingWenSequence[YiJing.binaryToFuxi(hexagram)] as Kingwen;
+  return kingWenSequence[binaryToFuxi(hexagram)] as Kingwen;
 };

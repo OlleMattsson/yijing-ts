@@ -1,10 +1,11 @@
 import {
   TrueHexagram,
-  BinaryHexagram,
   uint8,
   CoinToss,
   NormalizedCoinToss,
-  Line
+  Line,
+  FourUint8Numbers,
+  Binary
 } from "./types";
 import { RNG, Provider } from "rng-ts";
 import { YiJing } from ".";
@@ -50,10 +51,10 @@ export class Oracle implements OracleInterface {
         i * 4 + 4
       ) as CoinToss; // pick next 4 numbers from our set of 24
 
-      const normalizedCoins: NormalizedCoinToss = YiJing.normalizeFourUintNumbers(
+      const normalizedCoins: NormalizedCoinToss = this.normalizeFourUintNumbers(
         coins
       );
-      lines[i] = YiJing.makeLine(normalizedCoins);
+      lines[i] = this.makeLine(normalizedCoins);
     }
 
     this.hexagram = new Hexagram({lines})
@@ -128,5 +129,28 @@ export class Oracle implements OracleInterface {
           return true;
       }
       });  
+  }
+
+   // normalize a tuple of 4 uint8 integers
+  private normalizeFourUintNumbers(
+    arr: FourUint8Numbers
+  ): NormalizedCoinToss {
+    var normalized: NormalizedCoinToss = new Array(4) as NormalizedCoinToss;
+  
+    for (var i = 0, l = arr.length; i < l; i++) {
+      normalized[i] = this.normalize(arr[i]);
+    }
+  
+    return normalized;
+  }
+  
+  // make a line
+  private makeLine(arr: NormalizedCoinToss): Line {
+    return parseInt(arr.join(""), 2) as Line;
+  }
+
+  // normalize uint8 integer (0-255) to 0 (tails) or 1 (heads)
+  private normalize(n: uint8): Binary {
+    return Math.round(n / 255) as Binary;
   }
 }
